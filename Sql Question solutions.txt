@@ -1,0 +1,19 @@
+Query 1)SELECT count(*) FROM Orders o,Shippers s where o.ShipperID=s.ShipperID and ShipperName='Speedy Express';
+Output:
+count(*)
+54
+
+Ans 2)Select distinct(LastName) from employees e, orders d where e.employeeid=d.employeeid and e.employeeid in(Select employeeid from(
+Select employeeid,count(orderid) as od from orders group by employeeid order by od desc limit 1));
+Output:
+LastName
+Peacock
+
+
+Ans 3) Select productname from(
+Select productname,count(productname) as ct from orderdetails o, products p where o.productid=p.productid and o.orderid in(
+Select orderid from orders o, customers c where o.customerid =c.customerid  and c.country='Germany')group by productname order by ct desc limit 1);
+Output:
+productname
+Gorgonzola Telino
+
